@@ -11,9 +11,7 @@
 
 <body>
     <?php
-    #Date of the previous Saturday
-    $date_id = '2023-10-22';
-    #Name of Server
+    #Name/IP of Server
     $serverName = "10.38.98.3";
     #It seems like ODBC Driver 18 works for our current installations, however, the TrustServerCertificate must be added as true or the connection fails
     $connectionInfo = array("Database" => "CoIST_LIVE", "UID" => "cpuckett", "PWD" => "JupiterSkies13!", "TrustServerCertificate" => True, "Driver" => 'ODBC Driver 18 for SQL Server');
@@ -25,6 +23,8 @@
         echo "Connection could not be established.<br />";
         die(print_r(sqlsrv_errors(), true));
     }
+    #This is a revised verison of the original block -- the idea here is to stage the data almost completely with the SQL query so that the display can
+    #be manipulated. Before the names of technicians were loaded seperately of the data which meant it could only be sorted based on the Technician/Agent ID
     $tsql = "DECLARE @CurDate DATE SELECT @CurDate = CAST(DATEADD(DD,-(DATEPART(DW,GETDATE())-7),GETDATE()) as Date) 
             SELECT
                 PrefFullName,
@@ -46,6 +46,7 @@
                 EXISTS (SELECT TechnicianID FROM dbo.SCCalls WHERE AgentID = TechnicianID AND AgentID NOT IN (28,26,39) AND CAST(Date as DATE) > '2023-07-01') AND Status IN ('P','H')
             GROUP BY PrefFullName, TechnicianID
             ORDER by [New Open] DESC";
+    #Converts our string SQL query above to an object that can be used to fetch an array of the output as done below with the $row while loop
     $stmt = sqlsrv_query($conn, $tsql);
     ?>
     <div id="container">
@@ -63,6 +64,7 @@
         <div class="page_title">
             <h1>Technician Metrics — Weekly Open/Close</h1>
         </div>
+        <!--This is the start of the display table -->
         <div class="data_body">
             <table>
                 <tr class="table_header">
@@ -73,6 +75,7 @@
                     <td>Weekly Closure Rate</td>
                 </tr>
                 <?php
+                #These variables are looped when displaying the Technician rows allowing for the total row to be calculated and displayed
                 $total_ToC = 0;
                 $total_New_Open = 0;
                 $total_New_Close = 0;
@@ -102,7 +105,6 @@
                                 echo $row['Closure'], ' %';
                             } ?>
                         </td>
-
                     </tr>
                     <?php
                 }
