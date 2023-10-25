@@ -1,0 +1,153 @@
+body {
+    background-color: #3D3A4B;
+    overflow-y: auto;
+}
+
+#container {
+    background-color: #F9F5FF;
+    margin: auto;
+    margin-top: 1%;
+    width: 80%;
+    display: block;
+    overflow: auto;
+    padding-bottom: 1%;
+    border-radius: 5px;
+}
+
+.menu {
+    background-color: #7C9885;
+    border-top-left-radius: 5px;
+    border-top-right-radius: 5px;
+    overflow: hidden;
+}
+
+.menu a {
+    font-size: 26px;
+    color: #3D3A4B;
+    padding: 15px 36px;
+    text-decoration: none;
+    text-align: center;
+    float: left;
+}
+
+.menu a:hover {
+    color: #F9F5FF;
+    background-color: #639FAB;
+}
+
+.submenu {
+    margin-top: 5px;
+    background-color: #90d1a5;
+    overflow: hidden;
+
+}
+
+.submenu a {
+    font-size: 16px;
+    color: #3D3A4B;
+    padding: 8px 22px;
+    text-decoration: none;
+    text-align: center;
+    float: left;
+}
+
+.submenu a:hover {
+    color: #F9F5FF;
+    background-color: #639FAB;
+}
+
+.page_title {
+    width: 98%;
+    float: left;
+    margin-left: 2%;
+    text-align: left;
+}
+
+.page_title h1 {
+    font-size: 36px;
+}
+
+.page_title p {
+    font-size: 12px;
+}
+
+#active {
+    color: #F9F5FF;
+    background-color: #639FAB;
+}
+
+.data_body {
+    float: left;
+    padding-left: 2%;
+    width: 96%;
+}
+
+.data_body td {
+    height: 18px;
+    border-top: 1px solid #3D3A4B;
+    border-collapse: collapse;
+    text-align: center;
+    padding: 6px;
+}
+
+.data_body table {
+    width: 100%;
+    border-top: 1px solid #3D3A4B;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.cust_data_body {
+    float: left;
+    padding-left: 2%;
+    width: 96%;
+
+}
+
+.cust_data_body td {
+    height: 18px;
+    border-top: 1px solid #3D3A4B;
+    border-collapse: collapse;
+    padding: 12px;
+    font-size: 16px;
+    text-align: center;
+
+
+}
+
+.cust_data_body table {
+    width: 100%;
+    border-top: 1px solid #3D3A4B;
+    border-collapse: collapse;
+    table-layout: fixed;
+}
+
+.table_footer {
+    background-color: #3D3A4B;
+    color: #F9F5FF;
+    font-weight: bold;
+}
+
+.table_header {
+    background-color: #3D3A4B;
+    color: #F9F5FF;
+}
+
+#open_chart {
+    padding-left: 20px;
+    padding-right: 20px;
+}
+
+.subtable_header {
+    background-color: #9bbea6;
+    color: #F9F5FF;
+}
+
+.subtable_body {
+    background-color: #d0ffde;
+    color: #3D3A4B;
+}
+
+.hover_name:hover {
+    text-decoration: underline;
+}
