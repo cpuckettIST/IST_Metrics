@@ -54,6 +54,7 @@
             <a href="reports">Home</a>
             <a id="active" href="tech_report">Technician Metrics</a>
             <a href="cust_report">Customer Statistics</a>
+            <img src="flag.gif" alt=""></img>
         </div>
         <div class="submenu">
             <a id="active" href="tech_report">Weekly Open/Close</a>
@@ -99,7 +100,7 @@
                             <?php echo $row['New Close'] ?>
                         </td>
                         <td>
-                            <?php if ($row['Closure'] == 0) {
+                            <?php if ($row['New Open'] == 0) {
                                 echo "—";
                             } else {
                                 echo $row['Closure'], ' %';

@@ -34,7 +34,7 @@
         echo "Connection could not be established.<br />";
         die(print_r(sqlsrv_errors(), true));
     }
-    $tsql = "SELECT PrefFullName, CustomerName, Description, a.CallID, Cast(a.LastUpdate as Date) as 'Last Updated', DATEDIFF(day, CAST(a.LastUpdate AS Date), GetDate()) as 'Days Since Last Update' FROM dbo.SCCalls a LEFT JOIN dbo.ShAgents b ON a.TechnicianID = b.AgentID LEFT JOIN dbo.ARCustomers c ON a.CustomerID = c.CustomerID WHERE a.LastUpdate < GETDATE()-7 AND Status = 'P' AND  AgentID != '28' AND AgentID != '26'  ORDER BY [Days Since Last Update] DESC";
+    $tsql = "SELECT PrefFullName, CustomerName, Description, a.CallID, Cast(a.LastUpdate as Date) as 'Last Updated', DATEDIFF(day, CAST(a.LastUpdate AS Date), GetDate()) as 'Days Since Last Update' FROM dbo.SCCalls a LEFT JOIN dbo.ShAgents b ON a.TechnicianID = b.AgentID LEFT JOIN dbo.ARCustomers c ON a.CustomerID = c.CustomerID WHERE a.LastUpdate < GETDATE()-7 AND Status IN ('P','H') AND  AgentID NOT IN ('28','26','39')  ORDER BY [Days Since Last Update] DESC";
     $stmt = sqlsrv_query($conn, $tsql);
     $count = sqlsrv_query($conn, $tsql, array(), array("Scrollable" => 'static'));
     ?>
