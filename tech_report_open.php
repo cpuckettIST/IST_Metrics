@@ -61,7 +61,7 @@
     $connectionInfoCurrent = array("Database" => "CoIST_LIVE", "UID" => "cpuckett", "PWD" => "JupiterSkies13!", "TrustServerCertificate" => True, "Driver" => 'ODBC Driver 18 for SQL Server');
     $connCurrent = sqlsrv_connect($serverName, $connectionInfoCurrent);
     #Create query of SCCalls table for calls with pending 'P' flag and returning a count of the rows
-    $tot_open_calls = "SELECT CallID FROM dbo.SCCalls WHERE Status IN ('P') AND TechnicianID != '28' AND TechnicianID != '26'";
+    $tot_open_calls = "SELECT CallID FROM dbo.SCCalls WHERE Status IN ('P','H') AND TechnicianID NOT IN('26','28','39')";
     $tot_open_stmt = sqlsrv_query($connCurrent, $tot_open_calls, array(), array("Scrollable" => 'static'));
     $tot_open_num = sqlsrv_num_rows($tot_open_stmt);
     #Create query of SCCalls table for calls with invoiced or okay to bill 'I' or 'OKB' flag and returning a count of the rows
@@ -97,6 +97,7 @@
         <div class="page_title">
             <h1>Technician Metrics — Open Calls</h1>
             <p>*Began omitting Todd's calls 8/12/23 /</p>
+            <p>*Began counting On Hold calls in the Open Calls 10/26/23</p>
         </div>
         <style>
             #chart-wrapper {

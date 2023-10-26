@@ -4,7 +4,7 @@
 <head>
     <title>InStore Metrics</title>
     <meta charset="UTF-8">
-    <meta http-equiv="refresh" content="30" />
+    <meta http-equiv="refresh" content="60" />
     <meta name="viewport" content="width=device-width, inital-scale=1.0">
     <link rel="stylesheet" href="stylesheets/istmetrics.css">
 </head>
@@ -45,7 +45,7 @@
             WHERE 
                 EXISTS (SELECT TechnicianID FROM dbo.SCCalls WHERE AgentID = TechnicianID AND AgentID NOT IN (28,26,39) AND CAST(Date as DATE) > '2023-07-01') AND Status IN ('P','H')
             GROUP BY PrefFullName, TechnicianID
-            ORDER by [New Open] DESC";
+            ORDER by [ToC] DESC";
     #Converts our string SQL query above to an object that can be used to fetch an array of the output as done below with the $row while loop
     $stmt = sqlsrv_query($conn, $tsql);
     ?>
@@ -91,7 +91,10 @@
                             <?php echo $row['ToC'] ?>
                         </td>
                         <td onclick="DetailEvent()">
-                            <?php echo $row['PrefFullName'] ?>
+                            <?php echo $row['PrefFullName'];
+                            if ($row['PrefFullName'] == 'Crcaig Wycoff') { ?><img style="height=1%;" src="cflag.gif"
+                                    alt=""></img>
+                            <?php } ?>
                         </td>
                         <td>
                             <?php echo $row['New Open'] ?>
@@ -104,6 +107,10 @@
                                 echo "—";
                             } else {
                                 echo $row['Closure'], ' %';
+                            }
+                            if ($row['Closure'] >= 90) {
+                                ?><!--<img style="width:25px;vertical-align:middle;margin:0px;" src="100.gif" alt=""></img>-->
+                                <?php echo '⭐';
                             } ?>
                         </td>
                     </tr>
