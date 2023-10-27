@@ -40,8 +40,8 @@
         echo "Connection could not be established.<br />";
         die(print_r(sqlsrv_errors(), true));
     }
-    $tsql = "SELECT CustomerID,CustomerName, (SELECT COUNT(*) FROM dbo.SCCalls WHERE dbo.ARCustomers.CustomerID = CustomerID AND (Status = 'P') AND TechnicianID != '28') AS Calls  FROM dbo.ARCustomers 
-WHERE EXISTS (SELECT CustomerID FROM dbo.SCCalls WHERE dbo.ARCustomers.CustomerID = CustomerID AND (Status = 'P') AND TechnicianID != '28')
+    $tsql = "SELECT CustomerID,CustomerName, (SELECT COUNT(*) FROM dbo.SCCalls WHERE dbo.ARCustomers.CustomerID = CustomerID AND Status IN ('P','H') AND TechnicianID NOT IN ('26','28','39')) AS Calls  FROM dbo.ARCustomers 
+WHERE EXISTS (SELECT CustomerID FROM dbo.SCCalls WHERE dbo.ARCustomers.CustomerID = CustomerID AND Status  IN ('P','H') AND TechnicianID NOT IN ('26','28','39'))
 ORDER BY Calls DESC";
     $stmt = sqlsrv_query($conn, $tsql);
     ?>
